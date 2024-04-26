@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "cyberCheck",
+  "version": "1.0",
+
+  "description": "Plugin focused on the analysis of security of the website, for the user. It will show the user the security level of the website, based on tons of parameters.",
+
+  "icons": {
+    "48": "icons/cyber-security.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.mozilla.org/*"],
+      "js": ["cyberPlugin.js"]
+    }
+  ]
+}
