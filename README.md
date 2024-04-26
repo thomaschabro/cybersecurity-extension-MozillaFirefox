@@ -1,8 +1,10 @@
-# cybersecurity-extension-MozillaFirefox
+# Cyber Security Extension - MozillaFirefox
+
+![alt text](icons/cyber-security.png)
 
 This Mozilla Firefox plugin is designed to enhance your security while navigating on the internet. With detection scripts, it actively identifies and alerts you to potential attacks and data leaks.
 
-Capable of detecting:
+**Capable of detecting:**
 
 - Connections to third part domains while navigating.
 - Amount of cookies injected when loading a page.
