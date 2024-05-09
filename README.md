@@ -13,3 +13,7 @@ This Mozilla Firefox plugin is designed to enhance your security while navigatin
 - Canvas fingerprints.
 
 Using those detections, the plugin will calculate and display a security score for the current page.
+
+References:
+
+- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Intercept_HTTP_requests

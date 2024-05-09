@@ -9,10 +9,37 @@
     "48": "icons/cyber-security.png"
   },
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.mozilla.org/*"],
-      "js": ["cyberPlugin.js"]
+  "background": {
+    "scripts": ["cyberPlugin.js"],
+    "persistent": true
+  },
+
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "tabs",
+    "<all_urls>",
+    "activeTab"
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/toque.png",
+    "default_title": "cyberCheck",
+    "default_popup": "popup/popup.html"
+  },
+
+  "commands": {
+    "open-popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Open plugin popup"
     }
-  ]
+  },
+
+  "web_accessible_resources": ["icons/cyber-security.png"]
 }
