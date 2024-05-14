@@ -33,6 +33,7 @@ setInterval(function () {
 
 // ======================================== ARMAZENAMENTO DE DADOS HTML5 ========================================
 var dataStorage = false;
+var guardaDados = false;
 
 browser.webRequest.onBeforeRequest.addListener(
   function (requestDetails) {
@@ -40,6 +41,7 @@ browser.webRequest.onBeforeRequest.addListener(
       localStorage.setItem("storageAllowed", "true");
       document.getElementById("htmlResult").textContent =
         "Local Storage: Allowed";
+      guardaDados = true;
     } else {
       document.getElementById("htmlResult").textContent =
         "Local Storage: Not Allowed";
@@ -61,6 +63,7 @@ document.getElementById("trackStorage").addEventListener("click", function () {
 // ======================================== DETECCAO DE HIJACKING E HOOKING ========================================
 var funcoesParaVerificar = ["alert", "prompt", "confirm"];
 var hijackBool = false;
+var tem_hijack = false;
 
 document.getElementById("trackHijack").addEventListener("click", function () {
   if (hijackBool == true) {
@@ -80,6 +83,31 @@ setInterval(function () {
     ) {
       document.getElementById("hookResult").textContent =
         "Suspect activity in " + nomeFuncao + "function";
+      tem_hijack = true;
     }
   });
 }, 5000);
+
+// ======================================== DETECCAO DE HIJACKING E HOOKING ========================================
+setInterval(function () {
+  var score = 0;
+  if (guardaDados) {
+    score++;
+  }
+  if (tem_hijack) {
+    score++;
+  }
+  if (thirdPartyCounter > 0) {
+    score++;
+  }
+
+  if (score == 0) {
+    document.getElementsByClassName("note").textContent = "10/10";
+  } else if (score == 1) {
+    document.getElementsByClassName("note").textContent = "7/10";
+  } else if (score == 2) {
+    document.getElementsByClassName("note").textContent = "3.5/10";
+  } else if (score == 3) {
+    document.getElementsByClassName("note").textContent = "0/10";
+  }
+}, 2000);
