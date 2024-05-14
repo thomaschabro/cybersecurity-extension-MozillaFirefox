@@ -14,7 +14,6 @@ browser.webRequest.onBeforeRequest.addListener(logURL, {
   urls: ["<all_urls>"],
 });
 
-// Add event listener to the button on click
 document.getElementById("trackThird").addEventListener("click", function () {
   if (thirdParty_Open == true) {
     thirdParty_Open = false;
@@ -25,7 +24,6 @@ document.getElementById("trackThird").addEventListener("click", function () {
   }
 });
 
-// Atualizar periodicamente a div com o valor da variável thirdPartyCounter
 setInterval(function () {
   if (document.getElementById("ThirdResult") != null) {
     document.getElementById("ThirdResult").textContent =
@@ -34,6 +32,8 @@ setInterval(function () {
 }, 1000);
 
 // ======================================== ARMAZENAMENTO DE DADOS HTML5 ========================================
+var dataStorage = false;
+
 browser.webRequest.onBeforeRequest.addListener(
   function (requestDetails) {
     if (requestDetails.url.includes("localStorage")) {
@@ -48,13 +48,38 @@ browser.webRequest.onBeforeRequest.addListener(
   { urls: ["<all_urls>"] }
 );
 
-// Add event listener to the button on click
 document.getElementById("trackStorage").addEventListener("click", function () {
-  if (thirdParty_Open == true) {
-    thirdParty_Open = false;
+  if (dataStorage == true) {
+    dataStorage = false;
     document.getElementById("htmlResult").hidden = true;
   } else {
-    thirdParty_Open = true;
+    dataStorage = true;
     document.getElementById("htmlResult").hidden = false;
   }
 });
+
+// ======================================== DETECCAO DE HIJACKING E HOOKING ========================================
+var funcoesParaVerificar = ["alert", "prompt", "confirm"];
+var hijackBool = false;
+
+document.getElementById("trackHijack").addEventListener("click", function () {
+  if (hijackBool == true) {
+    hijackBool = false;
+    document.getElementById("hookResult").hidden = true;
+  } else {
+    hijackBool = true;
+    document.getElementById("hookResult").hidden = false;
+  }
+});
+
+setInterval(function () {
+  funcoesParaVerificar.forEach(function (nomeFuncao) {
+    if (
+      window[nomeFuncao].toString() !==
+      Function.prototype[nomeFuncao].toString()
+    ) {
+      document.getElementById("hookResult").textContent =
+        "Suspect activity in " + nomeFuncao + "function";
+    }
+  });
+}, 5000);
